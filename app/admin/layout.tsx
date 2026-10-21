@@ -3,6 +3,10 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Pickture Admin — Portal Fotografer',
   description: 'Kelola sesi pemilihan foto wisuda dan sinkronisasi Google Drive.',
+  icons: {
+    icon: '/logo1.png',
+    apple: '/logo1.png',
+  },
 };
 
 export default function AdminRootLayout({

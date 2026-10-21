@@ -12,6 +12,14 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: 'Pickture — Pemilihan Foto Wisuda',
   description: 'Aplikasi pemilihan foto wisuda praktis, cepat, dan mobile-friendly untuk klien fotografer.',
+  icons: {
+    icon: [
+      { url: '/logo1.png', href: '/logo1.png' },
+    ],
+    apple: [
+      { url: '/logo1.png', href: '/logo1.png' },
+    ],
+  },
 };
 
 export default function RootLayout({
