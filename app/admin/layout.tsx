@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Pickture Admin — Portal Fotografer',
+  title: 'Pickture by NayakaVisuals',
   description: 'Kelola sesi pemilihan foto wisuda dan sinkronisasi Google Drive.',
   icons: {
     icon: '/logo1.png',

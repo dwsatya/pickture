@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: PageProps) {
   }
 
   return {
-    title: `Pilih Foto Wisuda — ${res.session.client_name}`,
+    title: `Pickture by NayakaVisuals - ${res.session.client_name}`,
     description: `Pilih maksimal ${res.session.max_selection} foto wisuda favorit Anda.`,
   };
 }
