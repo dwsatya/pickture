@@ -3,6 +3,7 @@
 import { getAdminClient } from '@/lib/supabase/server';
 import { formatPhotoCodes, renderMessageTemplate, buildWhatsAppUrl } from '@/lib/format-codes';
 import { revalidatePath } from 'next/cache';
+import { headers } from 'next/headers';
 
 export interface ClientSessionResponse {
   valid: boolean;
@@ -177,7 +178,11 @@ export async function submitSelection(slug: string) {
     .filter(Boolean) as string[];
 
   const formattedCodes = formatPhotoCodes(photoCodes, separator);
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+  
+  const headersList = await headers();
+  const host = headersList.get('x-forwarded-host') || headersList.get('host');
+  const proto = headersList.get('x-forwarded-proto') || (host?.includes('localhost') ? 'http' : 'https');
+  const appUrl = host ? `${proto}://${host}` : (process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000');
   const clientPageUrl = `${appUrl}/p/${session.slug}`;
 
   const message = renderMessageTemplate({

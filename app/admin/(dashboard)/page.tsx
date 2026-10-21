@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 
 import { connection } from 'next/server';
+import { headers } from 'next/headers';
 
 export const instant = false;
 
@@ -22,7 +23,10 @@ export default async function AdminDashboardPage() {
   await requireAdmin();
   const supabase = getAdminClient();
 
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+  const headersList = await headers();
+  const host = headersList.get('x-forwarded-host') || headersList.get('host');
+  const proto = headersList.get('x-forwarded-proto') || (host?.includes('localhost') ? 'http' : 'https');
+  const appUrl = host ? `${proto}://${host}` : (process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000');
 
   // Fetch all sessions with photo counts and selection counts
   const [{ data: sessionsData }, { data: settings }] = await Promise.all([

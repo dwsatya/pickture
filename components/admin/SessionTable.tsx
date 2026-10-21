@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useState, useTransition, useEffect } from 'react';
 import Link from 'next/link';
 import { toast } from 'sonner';
 import { StatusBadge } from '@/components/admin/StatusBadge';
@@ -50,6 +50,13 @@ interface SessionTableProps {
 export function SessionTable({ sessions, appUrl }: SessionTableProps) {
   const [syncingId, setSyncingId] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+  const [currentOrigin, setCurrentOrigin] = useState(appUrl);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.location.origin) {
+      setCurrentOrigin(window.location.origin);
+    }
+  }, []);
 
   const handleSync = (sessionId: string, clientName: string) => {
     setSyncingId(sessionId);
@@ -128,7 +135,7 @@ export function SessionTable({ sessions, appUrl }: SessionTableProps) {
 
           <TableBody className="divide-y divide-stone-100">
             {sessions.map((session) => {
-              const clientUrl = `${appUrl}/p/${session.slug}`;
+              const clientUrl = `${currentOrigin}/p/${session.slug}`;
               const isSyncingThis = syncingId === session.id;
 
               return (

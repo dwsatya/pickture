@@ -28,8 +28,17 @@ export function CopyButton({
     e.preventDefault();
     e.stopPropagation();
 
+    let textToCopy = text;
+    if (typeof window !== 'undefined' && window.location.origin) {
+      if (textToCopy.includes('localhost:3000') && !window.location.origin.includes('localhost:3000')) {
+        textToCopy = textToCopy.replace('http://localhost:3000', window.location.origin);
+      } else if (textToCopy.startsWith('/')) {
+        textToCopy = `${window.location.origin}${textToCopy}`;
+      }
+    }
+
     try {
-      await navigator.clipboard.writeText(text);
+      await navigator.clipboard.writeText(textToCopy);
       setCopied(true);
       toast.success(toastMessage);
       setTimeout(() => setCopied(false), 2000);
