@@ -1,0 +1,14 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Pickture Admin — Portal Fotografer',
+  description: 'Kelola sesi pemilihan foto wisuda dan sinkronisasi Google Drive.',
+};
+
+export default function AdminRootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return <>{children}</>;
+}
